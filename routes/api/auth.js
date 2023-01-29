@@ -3,7 +3,7 @@ const router = express.Router();
 const User = require("../../model/User");
 const CryptoJS = require("crypto-js");
 const jwt = require("jsonwebtoken");
-const Token = require("../../model/token");
+const Token = require("../../model/Token");
 const sendEmail = require("../../utils/sendEmail");
 const crypto = require("crypto");
 
