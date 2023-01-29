@@ -12,30 +12,31 @@ var cors = require('cors');
 var indexRouter = require('./routes/index');
 var AuthRouter = require('./routes/api/auth')
 var PasswordReset = require('./routes/api/PasswordReset')
-
+var StripeRouter = require("./routes/api/Stripe");
 
 var app = express();
 app.use(cors({ origin: true, credentials: true }));
 
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
+app.set("views", path.join(__dirname, "views"));
+app.set("view engine", "jade");
 
 dotenv.config();
 
-app.use(logger('dev'));
+app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, "public")));
 
-app.use('/', indexRouter);
-app.use('/api/auth', AuthRouter);
-app.use('/api/password-reset',PasswordReset);
+app.use("/", indexRouter);
+app.use("/api/auth", AuthRouter);
+app.use("/api/password-reset", PasswordReset);
+app.use("/api/Stripe", StripeRouter);
 
-
-mongoose.set('strictQuery', false);
+mongoose.set("strictQuery", false);
 mongoose.connect(process.env.DB_Connect, () => {
   console.log("Connected");
+  console.log(process.env.STRIPE_SECRET_KEY);
 });
 
 
