@@ -5,7 +5,7 @@ const templateSchema = mongoose.Schema(
     siteId:{type: String},
     siteName: { type: String, required: true, unique: true },
     siteDescription: { type: String, required: true },
-    siteSourceCode: { type: String, required: true },
+    siteSourceCode: { type: String },
     siteImage: { type: String },
     siteUrl: { type: String },
     userId:{ type: String},
