@@ -13,6 +13,7 @@ var indexRouter = require('./routes/index');
 var AuthRouter = require('./routes/api/auth')
 var PasswordReset = require('./routes/api/PasswordReset')
 var StripeRouter = require("./routes/api/Stripe");
+var TemplateRouter = require("./routes/api/site");
 
 var app = express();
 app.use(cors({ origin: true, credentials: true }));
@@ -32,6 +33,7 @@ app.use("/", indexRouter);
 app.use("/api/auth", AuthRouter);
 app.use("/api/password-reset", PasswordReset);
 app.use("/api/Stripe", StripeRouter);
+app.use("/api/site",TemplateRouter);
 
 mongoose.set("strictQuery", false);
 mongoose.connect(process.env.DB_Connect, () => {

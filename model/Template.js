@@ -2,13 +2,14 @@ const mongoose = require("mongoose");
 
 const templateSchema = mongoose.Schema(
   {
+    siteId:{type: String},
     siteName: { type: String, required: true, unique: true },
     siteDescription: { type: String, required: true },
     siteSourceCode: { type: String, required: true },
-    siteImage: { type: String, required: true },
+    siteImage: { type: String },
     siteUrl: { type: String },
     userId:{ type: String},
-    price: { type: Number, default:0},
+    sitePrice: { type: Number, default:0},
     
   },
   { timestamps: true }
