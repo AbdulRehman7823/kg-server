@@ -49,10 +49,14 @@ router.route("/withdraw/:accountId").post(async (req, res) => {
 });
 
 router.route("/managePayout/:userId").post(async (req, res) => {
+
+  console.log(req,req.params.userId)
   const account = await loadStripe.accounts.create({
     type: "express",
     business_type: "individual",
   });
+
+
   const accountLink = await loadStripe.accountLinks.create({
     account: account.id,
     refresh_url:
@@ -61,7 +65,7 @@ router.route("/managePayout/:userId").post(async (req, res) => {
     type: "account_onboarding",
   });
   if (account) {
-    const user = await User.findByIdAndUpdate(req.body.userId, {
+    const user = await User.findByIdAndUpdate(req.params.userId, {
       accountId: account.id,
     });
     if (!user) {

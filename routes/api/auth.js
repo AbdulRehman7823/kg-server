@@ -87,6 +87,16 @@ router.post("/login", async (req, res) => {
   }
 });
 
+router.get('/:id', async (req, res) => {
+  const id =  req.params.id;
+  const user =  await User.findById(id);
+  if(!user)
+  return res.status(422).send({ message:"user not found" });
+
+  return res.status(200).send(user);
+
+   
+})
 router.post('/thirdparty/register',async (req, res) => {
   try {
     console.log(req.body);

@@ -15,6 +15,7 @@ var PasswordReset = require('./routes/api/PasswordReset')
 var StripeRouter = require("./routes/api/Stripe");
 var TemplateRouter = require("./routes/api/site");
 var ContributionRouter = require("./routes/api/contributionApi");
+var UserRouter = require("./routes/api/user");
 
 var app = express();
 app.use(cors({ origin: true, credentials: true }));
@@ -37,6 +38,7 @@ app.use("/api/password-reset", PasswordReset);
 app.use("/api/stripe", StripeRouter);
 app.use("/api/site",TemplateRouter);
 app.use("/api/contribution",ContributionRouter);
+app.use("/api/user",UserRouter);
 
 mongoose.set("strictQuery", false);
 mongoose.connect(process.env.DB_Connect, () => {
