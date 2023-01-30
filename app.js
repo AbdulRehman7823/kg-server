@@ -6,9 +6,6 @@ var logger = require('morgan');
 var mongoose  = require('mongoose');
 var dotenv = require('dotenv');
 var cors = require('cors');
-
-
-//<00000000000000000000000---- Routers 00000000000000000000000>
 var indexRouter = require('./routes/index');
 var AuthRouter = require('./routes/api/auth')
 var PasswordReset = require('./routes/api/PasswordReset')

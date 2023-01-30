@@ -65,6 +65,7 @@ router.route("/managePayout/:userId").post(async (req, res) => {
     type: "account_onboarding",
   });
   if (account) {
+    console.log(account);
     const user = await User.findByIdAndUpdate(req.params.userId, {
       accountId: account.id,
     });
