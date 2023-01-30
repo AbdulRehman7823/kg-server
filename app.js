@@ -13,6 +13,7 @@ var StripeRouter = require("./routes/api/Stripe");
 var TemplateRouter = require("./routes/api/site");
 var ContributionRouter = require("./routes/api/contributionApi");
 var UserRouter = require("./routes/api/user");
+var TransactionRouter = require("./routes/api/transactions")
 
 var app = express();
 app.use(cors({ origin: true, credentials: true }));
@@ -36,6 +37,7 @@ app.use("/api/stripe", StripeRouter);
 app.use("/api/site",TemplateRouter);
 app.use("/api/contribution",ContributionRouter);
 app.use("/api/user",UserRouter);
+app.use("/api/transactions",TransactionRouter);
 
 mongoose.set("strictQuery", false);
 mongoose.connect(process.env.DB_Connect, () => {
