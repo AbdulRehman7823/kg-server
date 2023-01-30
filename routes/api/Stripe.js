@@ -9,7 +9,6 @@ const loadStripe = stripe(process.env.STRIPE_SECRET_KEY);
 router.route("/payment").post(async (req, res) => {
   const paymentDetails = req.body;
 
-  
   const session = await loadStripe.checkout.sessions.create({
     payment_method_types: ["card"],
     line_items: [
@@ -57,7 +56,7 @@ router.route("/managePayout/:userId").post(async (req, res) => {
   const accountLink = await loadStripe.accountLinks.create({
     account: account.id,
     refresh_url:
-      "https://kg-server-production.up.railway.app/api/stripe//managePayout",
+      "https://kg-server-production.up.railway.app/api/stripe/managePayout",
     return_url: `${process.env.CLIENT_URL}`,
     type: "account_onboarding",
   });
@@ -86,18 +85,18 @@ router.route("/webhook").post(async (request, response) => {
   } catch (err) {
     response.status(400).send(`Webhook Error: ${err.message}`);
 
-    logger.info("webhook failed");
+    console.log("webhook failed");
     return;
   }
   // Handle the event
   switch (event.type) {
     case "payment_intent.canceled":
-      logger.info("paymnet failed");
+      console.log("paymnet failed");
 
       // Then define and call a function to handle the event payment_intent.payment_failed
       break;
     case "payment_intent.succeeded":
-      logger.info(event.data.object.metadata);
+      console.log(event.data.object.metadata);
       const data = event.data.object.metadata;
       try {
         const user = await User.findById(data.receiverId);
@@ -105,15 +104,15 @@ router.route("/webhook").post(async (request, response) => {
         await user.save();
         await Order.create(data);
       } catch (error) {
-        logger.info(error);
+        console.log(error);
       }
       // Then define and call a function to handle the event payment_intent.succeeded
       break;
     case "account.external_account.created":
-      logger.info("account created successfully");
+      console.log("account created successfully");
       break;
     default:
-      logger.info(`Unhandled event type ${event.type}`);
+      console.log(`Unhandled event type ${event.type}`);
   }
   return response.status(200).send("success");
   // Return a 200 response to acknowledge receipt of the event
