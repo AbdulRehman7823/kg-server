@@ -25,7 +25,7 @@ app.set("view engine", "jade");
 dotenv.config();
 
 app.use(logger("dev"));
-app.use('/api/stripe/webhook', express.raw({ type: '/' }));
+app.use('/api/stripe/webhook', express.raw({ type: '*/*' }));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(cookieParser());
