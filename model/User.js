@@ -11,6 +11,7 @@ const userSchema = mongoose.Schema(
     thirdPartyVerified: { type: Boolean, default: false },
     templates: [{ templateId: { type: String } }],
     withdrawEarning: { type: Number, default: 0 },
+    totalSales:{type: Number, default:0}
   },
   { timestamps: true }
 );

@@ -100,7 +100,8 @@ router.route("/webhook").post(async (request, response) => {
       const data = event.data.object.metadata;
       try {
         const user = await User.findById(data.receiverId);
-        user.withdrawEarning += data.price;
+        user.withdrawEarning += parseFloat(data.price);
+        user.totalSales++;
         await user.save();
         await Order.create(data);
       } catch (error) {

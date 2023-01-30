@@ -74,7 +74,11 @@ router.post("/login", async (req, res) => {
       _id: user._id,
       username: user.username,
       email: user.email,
-      img:user.img
+      img:user.img,
+      withdrawEarning:user.withdrawEarning,
+      accountId: user.accountId,
+      totalSales:user.totalSales
+
     };
     const accessToken = jwt.sign(signedUser, process.env.SECRET_TOKEN);
     res.status(200).json({ accessToken: accessToken });
