@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const User = require("../../model/User");
 const { verifyToken } = require("../../middlewares/authenticate");
-const Template = require("../../model/Template");
+const Contribution = require("../../model/contribution");
 
 router.post("/:id", async (req, res) => {
   console.log(req.body);
@@ -11,10 +11,10 @@ router.post("/:id", async (req, res) => {
     var user = await User.findById(userId);
     console.log(user);
     if (!user) return res.status(422).send({ message: "User is not found" });
-    const template = new Template(req.body);
-    template.userId = userId;
-    await template.save();
-    return res.status(200).send({ message: "Your Site is Saved Successfully" });
+    const contribution = new Contribution(req.body);
+    contribution.userId = userId;
+    await contribution.save();
+    return res.status(200).send({ message: "Your Contribution is Saved Successfully" });
   } catch (err) {
     console.log(err);
     return res.status(500).send({ message: err.message });
@@ -23,14 +23,14 @@ router.post("/:id", async (req, res) => {
 
 router.put("/:id",async (req, res) => {
     try {
-        const updatedTemplate= await Template.findByIdAndUpdate(
+        const updatedContribution= await Contribution.findByIdAndUpdate(
           req.params.id,
           {
             $set: req.body,
           },
           { new: true }
         );
-        res.status(200).send(updatedTemplate);
+        res.status(200).send(updatedContribution);
       } catch (err) {
         res.status(500).send({message:err.message});
       }
@@ -41,13 +41,12 @@ router.get('/:id', async(req, res)=>{
 
     const userId = req.params.id;
     var us = await User.findById(userId);
-    console.log(us);
     if(!us)
     return res.status(422).send({message:"User is not authorized"});
 
-    const templates = await Template.find({ userId: userId});
+    const contribution = await Contribution.find({ userId: userId});
     
-    return res.status(200).send(templates);
+    return res.status(200).send(contribution);
     
 });
 
@@ -55,7 +54,7 @@ router.get('/:id', async(req, res)=>{
 router.delete("/:id",async (req, res) => {
   try{
     const id = req.params.id;
-    const result= await Template.deleteOne({_id:id});
+    const result= await Contribution.deleteOne({_id:id});
     if(result){
       return res.status(200).send({message:"Successfully Deleted"});
 
@@ -70,7 +69,7 @@ router.delete("/:id",async (req, res) => {
 
 
 router.get("/",async (req,res)=>{
-  const templates = await Template.find();
-  return res.status(200).send(templates);
+  const contributions = await Contribution.find();
+  return res.status(200).send(contributions);
 })
 module.exports = router;

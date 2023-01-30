@@ -5,9 +5,11 @@ const Order = require("../../model/Orders");
 const User = require("../../model/User");
 const loadStripe = stripe(process.env.STRIPE_SECRET_KEY);
 
+
 router.route("/payment").post(async (req, res) => {
   const paymentDetails = req.body;
 
+  
   const session = await loadStripe.checkout.sessions.create({
     payment_method_types: ["card"],
     line_items: [
