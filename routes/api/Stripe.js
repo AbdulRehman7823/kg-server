@@ -74,7 +74,7 @@ router.route("/managePayout/:userId").post(async (req, res) => {
 router.route("/webhook").post(async (request, response) => {
   const sig = request.headers["stripe-signature"];
   const payLoad = request.body;
-
+  console.log(request.body);
   let event;
   try {
     event = await stripe.webhooks.constructEvent(
