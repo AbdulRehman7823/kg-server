@@ -36,6 +36,15 @@ router.put("/:id",async (req, res) => {
       }
 })
 
+router.get('/template/:id',async (req, res) => {
+  const id = req.params.id;
+  const template = await Template.findById(id);
+  if(!template)
+  return res.status(404).send({ message:"There is no Template with this ID." });
+
+  return res.status(200).send(template);
+
+});
 
 router.get('/:id', async(req, res)=>{
 

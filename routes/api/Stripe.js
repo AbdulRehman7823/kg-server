@@ -25,7 +25,7 @@ router.route("/payment").post(async (req, res) => {
     ],
     payment_intent_data: { metadata: req.body },
     mode: "payment",
-    success_url: `${process.env.CLIENT_URL}paymentsuccess`,
+    success_url: `${process.env.CLIENT_URL}paymentsuccess?siteId=${req.body.siteId}`,
     cancel_url: `${process.env.CLIENT_URL}paymentcancel`,
   });
   res.status(200).send(session);
