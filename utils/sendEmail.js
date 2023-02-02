@@ -70,7 +70,7 @@ module.exports = async (email, subject, text) => {
                           </li>
                       </ul>
                       <h1 class="heading">Grow With us!</h1>
-                      <a class="link" href=${text}> verify Your account</a>
+                      <a class="link" href=${text}>Click Here </a>
                    </div>
                 </body>
           </html>`,
